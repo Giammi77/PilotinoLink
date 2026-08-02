@@ -1,0 +1,383 @@
+<title>Mappa parametri EEPROM — pilotino_20260224</title>
+<style>
+  :root {
+    --bg: #eef1f2;
+    --surface: #ffffff;
+    --ink: #1a2226;
+    --ink-dim: #5c6b73;
+    --ink-faint: #8b979d;
+    --accent: #b8691f;
+    --accent-bg: #f4e3cf;
+    --locked: #8a97a0;
+    --locked-bg: #e7eaec;
+    --rule: #d7dcdd;
+    --rule-strong: #b9c2c4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12181c;
+      --surface: #1a2227;
+      --ink: #e7ecee;
+      --ink-dim: #93a2aa;
+      --ink-faint: #66757c;
+      --accent: #e2a24f;
+      --accent-bg: #3a2c17;
+      --locked: #6b7a82;
+      --locked-bg: #232e33;
+      --rule: #2a353b;
+      --rule-strong: #3a464c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12181c;
+    --surface: #1a2227;
+    --ink: #e7ecee;
+    --ink-dim: #93a2aa;
+    --ink-faint: #66757c;
+    --accent: #e2a24f;
+    --accent-bg: #3a2c17;
+    --locked: #6b7a82;
+    --locked-bg: #232e33;
+    --rule: #2a353b;
+    --rule-strong: #3a464c;
+  }
+  :root[data-theme="light"] {
+    --bg: #eef1f2;
+    --surface: #ffffff;
+    --ink: #1a2226;
+    --ink-dim: #5c6b73;
+    --ink-faint: #8b979d;
+    --accent: #b8691f;
+    --accent-bg: #f4e3cf;
+    --locked: #8a97a0;
+    --locked-bg: #e7eaec;
+    --rule: #d7dcdd;
+    --rule-strong: #b9c2c4;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 28px 80px;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  header.doc-head {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+  }
+
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+
+  .subtitle {
+    color: var(--ink-dim);
+    font-size: 0.98rem;
+    margin: 0;
+    max-width: 60ch;
+    line-height: 1.5;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    margin-top: 18px;
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+  }
+  .meta-row dt {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+  .meta-row dd {
+    margin: 2px 0 0;
+    color: var(--ink);
+  }
+  .meta-row > div { min-width: 0; }
+
+  .formula {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    margin: 24px 0 32px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .formula .expr {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: 1.05rem;
+    color: var(--accent);
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 28px;
+    margin: 32px 0 8px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat .n {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .stat .n.accent { color: var(--accent); }
+  .stat .l {
+    font-size: 0.74rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.02em;
+  }
+
+  h2 {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin: 40px 0 4px;
+  }
+  .section-note {
+    color: var(--ink-dim);
+    font-size: 0.88rem;
+    margin: 0 0 16px;
+    max-width: 68ch;
+    line-height: 1.55;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    min-width: 640px;
+  }
+
+  thead th {
+    text-align: left;
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-dim);
+    font-weight: 600;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rule-strong);
+    white-space: nowrap;
+  }
+
+  tbody td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: color-mix(in srgb, var(--ink) 3%, transparent); }
+
+  td.num { font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; color: var(--ink-dim); }
+  td.addr { font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; }
+  td.addr .hex { color: var(--ink-faint); font-size: 0.82em; margin-left: 6px; }
+  td.const { color: var(--ink-dim); font-size: 0.86em; }
+  td.label .chip {
+    display: inline-block;
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-weight: 600;
+    font-size: 0.86em;
+  }
+  td.sigla { font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; }
+  td.sigla kbd {
+    font-family: inherit;
+    background: var(--locked-bg);
+    border: 1px solid var(--rule-strong);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 0.85em;
+  }
+  td.menu { color: var(--ink-dim); font-size: 0.86em; }
+
+  .excluded-list {
+    display: grid;
+    gap: 10px;
+    margin: 0 0 8px;
+  }
+  .excluded-item {
+    display: grid;
+    grid-template-columns: 108px 140px 1fr;
+    gap: 16px;
+    align-items: baseline;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--locked);
+    font-size: 0.86rem;
+  }
+  .excluded-item .addr { font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; color: var(--ink-dim); }
+  .excluded-item .name { font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; font-weight: 600; }
+  .excluded-item .why { color: var(--ink-dim); line-height: 1.5; }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 560px) {
+    .sheet { padding: 36px 16px 60px; }
+    .excluded-item { grid-template-columns: 1fr; gap: 4px; }
+    .stat-row { gap: 20px; }
+  }
+</style>
+
+<div class="sheet">
+
+  <header class="doc-head">
+    <p class="eyebrow">Nota tecnica — condivisione interna</p>
+    <h1>Mappa indirizzi EEPROM · pilotino_20260224</h1>
+    <p class="subtitle">Corrispondenza fra i byte del backup EEPROM (letto via seriale) e i parametri di volo che il firmware espone a menu. Serve a decidere quali campi la nuova interfaccia di scrittura può abilitare in modifica.</p>
+    <dl class="meta-row">
+      <div><dt>Sorgente firmware</dt><dd class="mono">pilotino_20260224.ino</dd></div>
+      <div><dt>Protocollo</dt><dd class="mono">rEEprom() / wEEprom()</dd></div>
+      <div><dt>Byte totali trasferiti</dt><dd class="mono">100</dd></div>
+    </dl>
+  </header>
+
+  <div class="formula">
+    Ogni riga del backup ha indice <span class="expr">i</span> (0–99). L'indirizzo EEPROM reale è<br>
+    <span class="expr">indirizzo&nbsp;=&nbsp;490&nbsp;+&nbsp;i</span>
+    &nbsp;— l'origine 490 è <span class="mono">GYRO_DRIFT_ADR</span>, primo byte letto/scritto dal protocollo seriale.
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><span class="n accent">16</span><span class="l">indici editabili</span></div>
+    <div class="stat"><span class="n">100</span><span class="l">byte totali nel backup</span></div>
+    <div class="stat"><span class="n">542–557</span><span class="l">range indirizzi editabili</span></div>
+  </div>
+
+  <h2>Parametri editabili</h2>
+  <p class="section-note">Scritti dal firmware tramite <code class="mono">parWrite(ADDR)</code> — inserimento diretto di un numero da menu seriale. Sono gli unici 16 byte per cui la UI dovrà offrire un campo numerico modificabile.</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Idx</th>
+          <th>Indirizzo</th>
+          <th>Costante</th>
+          <th>Label</th>
+          <th>Sigla menu</th>
+          <th>Menu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">52</td><td class="addr">542<span class="hex">0x21E</span></td><td class="const">PITOT_KP</td><td class="label"><span class="chip">pitG</span></td><td class="sigla"><kbd>a</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">53</td><td class="addr">543<span class="hex">0x21F</span></td><td class="const">PITCH_DUMP</td><td class="label"><span class="chip">yDmp</span></td><td class="sigla"><kbd>b</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">54</td><td class="addr">544<span class="hex">0x220</span></td><td class="const">ROLL_DUMP</td><td class="label"><span class="chip">xDmp</span></td><td class="sigla"><kbd>c</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">55</td><td class="addr">545<span class="hex">0x221</span></td><td class="const">YAW_DUMP</td><td class="label"><span class="chip">zDmp</span></td><td class="sigla"><kbd>d</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">56</td><td class="addr">546<span class="hex">0x222</span></td><td class="const">WING_LOAD</td><td class="label"><span class="chip">wl</span></td><td class="sigla"><kbd>f</kbd></td><td class="menu">configuration</td></tr>
+        <tr><td class="num">57</td><td class="addr">547<span class="hex">0x223</span></td><td class="const">T_BOOM_LENGTH</td><td class="label"><span class="chip">tl</span></td><td class="sigla"><kbd>g</kbd></td><td class="menu">configuration</td></tr>
+        <tr><td class="num">58</td><td class="addr">548<span class="hex">0x224</span></td><td class="const">CL_MAX</td><td class="label"><span class="chip">clMax</span></td><td class="sigla"><kbd>m</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">59</td><td class="addr">549<span class="hex">0x225</span></td><td class="const">PITOT_FILTER</td><td class="label"><span class="chip">pitF</span></td><td class="sigla"><kbd>j</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">60</td><td class="addr">550<span class="hex">0x226</span></td><td class="const">ROLL_TAU</td><td class="label"><span class="chip">tau</span></td><td class="sigla"><kbd>g</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">61</td><td class="addr">551<span class="hex">0x227</span></td><td class="const">WINGSPAN</td><td class="label"><span class="chip">ws</span></td><td class="sigla"><kbd>h</kbd></td><td class="menu">configuration</td></tr>
+        <tr><td class="num">62</td><td class="addr">552<span class="hex">0x228</span></td><td class="const">HEADING_GAIN</td><td class="label"><span class="chip">HdG</span></td><td class="sigla"><kbd>h</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">63</td><td class="addr">553<span class="hex">0x229</span></td><td class="const">HEADING_DUMP</td><td class="label"><span class="chip">HdD</span></td><td class="sigla"><kbd>i</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">64</td><td class="addr">554<span class="hex">0x22A</span></td><td class="const">VARIO_TRIGGER</td><td class="label"><span class="chip">varTrgKts</span></td><td class="sigla"><kbd>f</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">65</td><td class="addr">555<span class="hex">0x22B</span></td><td class="const">PITOT_KD</td><td class="label"><span class="chip">pitD</span></td><td class="sigla"><kbd>k</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">66</td><td class="addr">556<span class="hex">0x22C</span></td><td class="const">THRUST_COMP</td><td class="label"><span class="chip">thrustComp</span></td><td class="sigla"><kbd>e</kbd></td><td class="menu">dynamic</td></tr>
+        <tr><td class="num">67</td><td class="addr">557<span class="hex">0x22D</span></td><td class="const">MOTOR_KP</td><td class="label"><span class="chip">motG</span></td><td class="sigla"><kbd>l</kbd></td><td class="menu">dynamic</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="section-note" style="margin-top:12px;">La sigla da sola è ambigua fra i due menu — <kbd class="mono" style="background:var(--locked-bg);border:1px solid var(--rule-strong);border-radius:3px;padding:1px 6px;">g</kbd> vale <span class="chip" style="padding:1px 6px;">tau</span> in dynamic ma <span class="chip" style="padding:1px 6px;">tl</span> in configuration; va sempre letta insieme alla colonna Menu.</p>
+
+  <h2>Esclusi dalla scrittura</h2>
+  <p class="section-note">Byte fuori dal range 542–557: restano di sola lettura in UI. I primi due per motivi strutturali, gli ultimi due perché le funzioni che li scrivono non compaiono nel file analizzato.</p>
+
+  <div class="excluded-list">
+    <div class="excluded-item">
+      <span class="addr">490–541</span>
+      <span class="name">calibrazione sensori</span>
+      <span class="why">GYRO_DRIFT, ACC_MAX/MIN/ZERO, ROLL/PITCH_ZERO, FAIL_SAFE, PITOT_ZERO, GYRO_ZERO, BARO_GROUND — scritti da routine di calibrazione automatica, non da inserimento manuale.</span>
+    </div>
+    <div class="excluded-item">
+      <span class="addr">560</span>
+      <span class="name">CONF_FLAGS</span>
+      <span class="why">Bitmask (Failsafe, thrAuto, elevons, flaperons, antispin) modificata bit a bit via <code class="mono">configFlagWrite()</code> — richiede 5 toggle, non un campo numerico.</span>
+    </div>
+    <div class="excluded-item">
+      <span class="addr">561</span>
+      <span class="name">SERVO_REVERSE</span>
+      <span class="why">Scritto da <code class="mono">servoReverse()</code>, funzione non presente in pilotino_20260224.ino — semantica da verificare prima di abilitare.</span>
+    </div>
+    <div class="excluded-item">
+      <span class="addr">562–565</span>
+      <span class="name">OUT_CONF</span>
+      <span class="why">Scritto da <code class="mono">channelMap()</code>, stesso motivo del punto precedente — verificare il file sorgente mancante.</span>
+    </div>
+  </div>
+
+  <footer>
+    <span>Preparato per revisione interna prima dell'implementazione della schermata di scrittura.</span>
+    <span class="mono">EepromManagerApp</span>
+  </footer>
+
+</div>
